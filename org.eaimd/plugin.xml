@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4" ?>
+<plugin>
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type id="org.eaimd.ai-md" name="AI MD" base-type="org.eclipse.core.runtime.text" file-extensions="ai-md"></content-type>
+	</extension>
+
+	<extension point="org.eclipse.ui.editors">
+		<editor class="org.eaimd.ai_md.editor.AiMdMultiPageEditor" contributorClass="org.eaimd.ai_md.editor.AiMdMultiPageEditorContributor" default="true" extensions="ai-md" icon="plugin-icons/ai-md-multi-page-editor.png" id="org.eaimd.editor.AIMarkdownEditor" name="AI MD Editor">
+			<contentTypeBinding contentTypeId="org.eaimd.ai-md"></contentTypeBinding>
+		</editor>
+	</extension>
+
+	<extension point="org.eclipse.tm4e.registry.grammars">
+		<grammar path="code-language/ai-md/grammars/ai-md.tmLanguage" scopeName="text.html.ai-md"></grammar>
+		<scopeNameContentTypeBinding contentTypeId="org.eaimd.ai-md" scopeName="text.html.ai-md"></scopeNameContentTypeBinding>
+	</extension>
+	
+	<extension point="org.eclipse.tm4e.languageconfiguration.languageConfigurations">
+		<languageConfiguration contentTypeId="org.eaimd.ai-md" path="code-language/ai-md/language-configurations/language-configuration.json"></languageConfiguration>
+	</extension>
+	
+	<extension point="org.eclipse.tm4e.ui.themes">
+		<theme dark="false" default="true" id="org.eaimd.ai-md.light.theme" name="AI MD Light" path="code-language/ai-md/themes/ai-md-light-theme.css"></theme>
+		<themeAssociation scopeName="text.html.ai-md" themeId="org.eaimd.ai-md.light.theme" whenDark="false"></themeAssociation>
+	</extension>
+	<extension point="org.eclipse.tm4e.ui.snippets">
+		<snippet name="org.eaimd.snippet.ai-md" path="code-language/ai-md/snippets/ai-md.code-snippets" scopeName="text.html.ai-md"></snippet>
+	</extension>
+
+	<extension point="org.eclipse.ui.genericeditor.reconcilers">
+		<reconciler class="org.eaimd.ai_md.editor.outline.AiMdOutlineReconciler" contentType="org.eaimd.ai-md"></reconciler>
+		
+		<reconciler class="org.eaimd.ai_md.editor.annotations.AiMdAnnotationsReconciler" contentType="org.eaimd.ai-md"></reconciler>
+	</extension>
+	<extension point="org.eclipse.ui.genericeditor.foldingReconcilers">
+		<foldingReconciler class="org.eaimd.ai_md.editor.folding.AiMdFoldingReconciler" contentType="org.eaimd.ai-md"></foldingReconciler>
+	</extension>
+	<extension point="org.eclipse.ui.genericeditor.contentAssistProcessors">
+		<contentAssistProcessor class="org.eaimd.ai_md.editor.content_assist.AiMdContentAssistProcessor" contentType="org.eaimd.ai-md"></contentAssistProcessor>
+	</extension>
+	
+	<!-- Markers -->
+	
+	<extension point="org.eclipse.core.resources.markers" id="org.eaimd.ai-md.reference.begin.marker" name="AI MD Reference Begin Marker">
+		<super type="org.eclipse.core.resources.textmarker"/>
+		<persistent value="false"/>
+	</extension>
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification" id="org.eaimd.ai-md.reference.begin.annotationSpec" name="AI MD Reference Begin Marker Annotation Specification">
+		<specification annotationType="org.eaimd.ai-md.reference.begin.annotationType"
+			includeOnPreferencePage="true"
+			label="AI MD Reference Begin"
+			icon="plugin-icons/ai-md-reference-begin-annotation.png"
+			presentationLayer="0"
+			overviewRulerPreferenceKey="org.eaimd.ai-md.reference.begin.overview.ruler"
+			overviewRulerPreferenceValue="true"
+			verticalRulerPreferenceKey="org.eaimd.ai-md.reference.begin.vertical.ruler"
+			verticalRulerPreferenceValue="true"
+			highlightPreferenceKey="org.eaimd.ai-md.reference.begin.highlight"
+			highlightPreferenceValue="false"
+			colorPreferenceKey="org.eaimd.ai-md.reference.begin.color"
+			colorPreferenceValue="208,161,161"
+			textPreferenceKey="org.eaimd.ai-md.reference.begin.text"
+			textPreferenceValue="false"
+			textStylePreferenceKey="org.eaimd.ai-md.reference.begin.textStyle"
+			textStylePreferenceValue="BOX">
+		</specification>
+	</extension>
+	<extension point="org.eclipse.ui.editors.annotationTypes" id="org.eaimd.ai-md.reference.begin.annotationType" name="AI MD Reference Begin Annotation Type">
+		<type markerType="org.eaimd.ai-md.reference.begin.marker" name="org.eaimd.ai-md.reference.begin.annotationType"></type>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.markers" id="org.eaimd.ai-md.reference.text.end.marker" name="AI MD Reference Text End Marker">
+		<super type="org.eclipse.core.resources.textmarker"/>
+		<persistent value="false"/>
+	</extension>
+	<extension point="org.eclipse.ui.editors.annotationTypes" id="org.eaimd.ai-md.reference.text.end.annotationType" name="AI MD Reference Text End Annotation Type">
+		<type markerType="org.eaimd.ai-md.reference.text.end.marker" name="org.eaimd.ai-md.reference.text.end.annotationType"></type>
+	</extension>
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification" id="org.eaimd.ai-md.reference.text.begin.annotationSpec" name="AI MD Reference Text Begin Marker Annotation Specification">
+		<specification annotationType="org.eaimd.ai-md.reference.text.begin.annotationType"
+			includeOnPreferencePage="true"
+			label="AI MD Reference Text Begin"
+			icon="plugin-icons/ai-md-reference-text-begin-annotation.png"
+			presentationLayer="0"
+			overviewRulerPreferenceKey="org.eaimd.ai-md.reference.text.begin.overview.ruler"
+			overviewRulerPreferenceValue="false"
+			verticalRulerPreferenceKey="org.eaimd.ai-md.reference.text.begin.vertical.ruler"
+			verticalRulerPreferenceValue="true"
+			highlightPreferenceKey="org.eaimd.ai-md.reference.text.begin.highlight"
+			highlightPreferenceValue="false"
+			colorPreferenceKey="org.eaimd.ai-md.reference.text.begin.color"
+			colorPreferenceValue="255,255,255"
+			textPreferenceKey="org.eaimd.ai-md.reference.text.begin.text"
+			textPreferenceValue="false"
+			textStylePreferenceKey="org.eaimd.ai-md.reference.text.begin.textStyle"
+			textStylePreferenceValue="BOX">
+		</specification>
+	</extension>
+	
+	<extension point="org.eclipse.core.resources.markers" id="org.eaimd.ai-md.reference.text.begin.marker" name="AI MD Reference Text Begin Marker">
+		<super type="org.eclipse.core.resources.textmarker"/>
+		<persistent value="false"/>
+	</extension>
+	<extension point="org.eclipse.ui.editors.annotationTypes" id="org.eaimd.ai-md.reference.text.begin.annotationType" name="AI MD Reference Text Begin Annotation Type">
+		<type markerType="org.eaimd.ai-md.reference.text.begin.marker" name="org.eaimd.ai-md.reference.text.begin.annotationType"></type>
+	</extension>
+	<extension point="org.eclipse.ui.editors.markerAnnotationSpecification" id="org.eaimd.ai-md.reference.text.end.annotationSpec" name="AI MD Reference Text End Marker Annotation Specification">
+		<specification annotationType="org.eaimd.ai-md.reference.text.end.annotationType"
+			includeOnPreferencePage="true"
+			label="AI MD Reference Text End"
+			icon="plugin-icons/ai-md-reference-text-end-annotation.png"
+			presentationLayer="0"
+			overviewRulerPreferenceKey="org.eaimd.ai-md.reference.text.end.overview.ruler"
+			overviewRulerPreferenceValue="false"
+			verticalRulerPreferenceKey="org.eaimd.ai-md.reference.text.end.vertical.ruler"
+			verticalRulerPreferenceValue="true"
+			highlightPreferenceKey="org.eaimd.ai-md.reference.text.end.highlight"
+			highlightPreferenceValue="false"
+			colorPreferenceKey="org.eaimd.ai-md.reference.text.end.color"
+			colorPreferenceValue="255,255,255"
+			textPreferenceKey="org.eaimd.ai-md.reference.text.end.text"
+			textPreferenceValue="false"
+			textStylePreferenceKey="org.eaimd.ai-md.reference.text.end.textStyle"
+			textStylePreferenceValue="BOX">
+		</specification>
+	</extension>
+	
+</plugin>

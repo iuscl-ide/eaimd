@@ -1,0 +1,45 @@
+#	Event Level			 		LoggerConfig Level
+#     				TRACE 	DEBUG 	INFO 	WARN 	ERROR 	FATAL 	OFF
+#
+#	ALL 			NO 		NO 		NO 		NO 		NO 		NO 		NO
+#	TRACE 			YES 	NO 		NO 		NO 		NO 		NO 		NO
+#	DEBUG 			YES 	YES 	NO 		NO 		NO 		NO 		NO
+#	INFO 			YES 	YES 	YES 	NO 		NO 		NO 		NO
+#	WARN 			YES 	YES 	YES 	YES 	NO 		NO 		NO
+#	ERROR 			YES 	YES 	YES 	YES 	YES 	NO 		NO
+#	FATAL 			YES 	YES 	YES 	YES 	YES 	YES 	NO
+#	OFF 			YES 	YES 	YES 	YES 	YES 	YES 	YES
+
+Configuration:
+  status: warn
+  name: "org.eaimd.log"
+  Appenders:
+    Console:
+      name: console_appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "[%-6p] org.eaimd; on %d{yyyy-MMM-dd} at %d{HH:mm:ss.SSS} logged from \"%M\" (%C{1.}, line %L):%n%m%n"
+    Routing:
+      name: rolling_file_routing
+      Routes:
+        Route:
+          RollingFile:
+            name: rolling_file_appender
+            fileName: ${sys:eaimd_plugin_folder}/log/eaimd.log
+            filePattern: ${sys:eaimd_plugin_folder}/log/eaimd_%d{yyyy-MM-dd}_%i.log
+            SizeBasedTriggeringPolicy:
+              size: "5 MB"
+            DefaultRolloverStrategy:
+              max: 5
+            PatternLayout:
+              Pattern: "[%-6p] org.eaimd; on %d{yyyy-MM-dd} at %d{HH:mm:ss.SSS} logged from \"%M\" (%C, line %L):%n%m%n"
+  Loggers:
+    Logger:
+      - name: org.eaimd
+        additivity: false
+        AppenderRef:
+          - ref: console_appender
+          - ref: rolling_file_routing
+    Root:
+      level: warn
+          
